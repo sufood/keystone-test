@@ -6,7 +6,12 @@ keystone.pre('routes', function(req, res, next) {
         
         res.locals.navLinks = [
                 { label: 'Home', key: 'home', href: '/' },
-                { label: 'Signin', key: 'signin', href: '/keystone' }
+                { label: 'Demos', key: 'demos', href: '/demos' },
+                { label: 'Recipes', key: 'recipes', href: '/recipes' },
+                { label: 'Travel', key: 'travel', href: '/travel' },
+                { label: 'About Me', key: 'aboutus', href: '/about' },
+                { label: 'Blog', key: 'blog', href: '/blog' },
+                { label: 'FAQ', key: 'faq', href: '/faq' }
         ];
         
         res.locals.user = req.user;
@@ -44,5 +49,11 @@ var routes = {
 exports = module.exports = function(app) {
 
 	app.get('/', routes.views.index);
+	app.get('/demos', routes.views.demos);
+	app.get('/recipes', routes.views.recipes);
+	app.get('/travel', routes.views.travel);
+	app.get('/about', routes.views.about);
+	app.get('/blog', routes.views.blog);
+	app.get('/faq', routes.views.faq);
 
 }
