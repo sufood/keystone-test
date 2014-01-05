@@ -1,0 +1,20 @@
+mixin recipe(recipe)
+        article(role="article", itemscope itemtype="http://schema.org/Recipe").recipe-item
+                .recipe-item__date.illustrative-heading
+                        span.illustrative-heading__line
+                        span.illustrative-heading__text
+                                time(datetime=recipe._.publishedDate.format('YYYY-MM-DD'), itemprop='datePublished')=recipe._.publishedDate.format('MMMM D, YYYY')
+                .recipe-item__image
+                        a(href='/recipe/' + recipe.slug)
+                                if recipe.image.exists
+                                        img(src=recipe._.image.fit(770,510), alt=recipe.title).img-responsive
+                .recipe-item__content(data-ks-editable=editable(user, { list: 'Recipe', id: recipe.id }))
+                        h3(itemprop='name').recipe-item__heading: a(href='/recipe/' + recipe.slug, itemprop='url')= recipe.title
+                        if recipe.author
+                                h5.recipe-item__author by #{recipe.author.name.full}
+                        if recipe.categories && recipe.categories.length
+                                ul.list-unstyled.tags-list
+                                        each tag, i in recipe.categories
+                                                li: a(href='/recipe/' + tag.key)= tag.name
+                        .description(itemprop='description')!= recipe.decription
+                        p: a(href='/recipe/' + recipe.slug, itemprop='url') Read more &rarr;

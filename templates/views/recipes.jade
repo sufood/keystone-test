@@ -1,4 +1,29 @@
 extends ../layouts/base
  
+include ../mixins/recipe
+
 block content
-    h1 Recipes
+        .container
+                .row
+                        div(class= data.categories.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
+                                if filters.category && !data.category
+                                        h3 Invalid Category.
+                                else
+                                        if data.recipes.length
+                                                .recipe
+                                                        each recipe in data.recipes
+                                                                +recipe(recipe)
+                                        else
+                                                if data.category
+                                                        h3 No recipes in the category #{data.category.name}.
+                                                else
+                                                        h3 There are no recipes yet.
+                        
+                        if data.categories.length
+                                .col-sm-3.col-sm-offset-1
+                                        if data.categories.length
+                                                h5.text-muted Filter by tag
+                                                ul.list-unstyled.tags-list
+                                                        li: a(href='/recipes', class=!data.categories ? 'active' : false) All
+                                                        each tag in data.categories
+                                                                li: a(href='/recipes/' + tag.key, class=data.category && data.category.id == tag.id ? 'active' : false).list-group-item= tag.name

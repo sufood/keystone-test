@@ -8,6 +8,16 @@ var _ = require('underscore'),
 exports.initLocals = function(req, res, next) {
     
     var locals = res.locals;
+
+    locals.navLinks = [
+        { label: 'Home',      key: 'home',      href: '/',          layout: 'left' },
+        { label: 'Demos',   key: 'demos',   href: '/demos',   layout: 'left' },
+        { label: 'Recipes',   key: 'recipes',   href: '/recipes',   layout: 'left' },
+        { label: 'Travel',     key: 'travel',     href: '/travel',     layout: 'left' },
+        { label: 'About',     key: 'about',     href: '/about',     layout: 'right' },
+        { label: 'Blog',      key: 'blog',      href: '/blog',      layout: 'right' },
+        { label: 'FAQ', key: 'mentoring', href: '/faq', layout: 'right' }
+    ];
     
     locals.user = req.user;
 

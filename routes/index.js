@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     middleware = require('./middleware'),
+    utils = keystone.utils,
     importRoutes = keystone.importer(__dirname);
  
 keystone.pre('routes', function(req, res, next) {
@@ -50,10 +51,16 @@ exports = module.exports = function(app) {
 
 	app.get('/', routes.views.index);
 	app.get('/demos', routes.views.demos);
-	app.get('/recipes', routes.views.recipes);
+        app.get('/recipes/:category?', routes.views.recipes);
 	app.get('/travel', routes.views.travel);
 	app.get('/about', routes.views.about);
-	app.get('/blog', routes.views.blog);
+        app.get('/blog/:category?', routes.views.blog);
+        app.all('/blog/post/:post', routes.views.post);
 	app.get('/faq', routes.views.faq);
+
+        // User
+        app.all('/create/recipe', routes.views.createRecipe);
+        app.all('/create/post', routes.views.createPost);
+        
 
 }
